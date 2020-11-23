@@ -1,21 +1,21 @@
 = Routing within the Service Mesh
 
 One of the advantages of using a Service Mesh is the ability to modify the
-behaviour of your application's traffic without requiring code changes. This
-change in behaviour is handled declaratively through the use of the Service
+behavior of your application's traffic without requiring code changes. This
+change in behavior is handled declaratively through the use of the Service
 Mesh custom resources.
 
 == What we will learn in this module
 
 This module will provide an introduction to traffic management within the
 Service Mesh, demonstrating some of these capabilities through the use of our
-existing example and the visualisation present in the Kiali Console.
+existing example and the visualization present in the Kiali Console.
 
 === Before we begin
 
 Before starting this module you should ensure you have access to the Kiali
 Console and have selected the Graph tab as discussed previously. This
-visualisation will be used to highlight the change in behaviour as we work
+visualization will be used to highlight the change in behavior as we work
 through this module.
 
 We also need to check the current Service Mesh configuration is as expected.
@@ -44,7 +44,7 @@ responsible for intercepting the application traffic coming into and going
 out of the pod. When the application invokes a service the client side proxy
 will intercept the invocation and determine which server side endpoint will
 be invoked based on the declarative rules in force at the time of the
-invocation. The default behaviour is to distribute requests to each endpoint
+invocation. The default behavior is to distribute requests to each endpoint
 of a service using a _Round Robin_ load balancer. In our Recommendation
 service requests will be distributed across the v1, v2 and v3 endpoints.
 
@@ -84,7 +84,7 @@ image:images/kiali-graph-2.png[Kiali showing traffic distributed across three en
 
 == Weighted Routing with the Service Mesh
 
-In this example we will modify the default behaviour for distributing
+In this example we will modify the default behavior for distributing
 requests between the endpoints. Before we can do this we need to define our
 _Destination Rule_ and specify the endpoint subsets we would like to use. For
 our demonstration we will use the version labels on each endpoint and name
@@ -114,7 +114,7 @@ To instantiate this `DestinationRule` you can execute the following:
 
 [source,bash,role="execute-1"]
 ----
-oc apply -f /opt/app-root/workshop/content/src/istiofiles/destination-rule.yml -n %username%-tutorial
+oc apply -n %username%-tutorial -f /opt/app-root/workshop/content/src/istiofiles/destination-rule.yml
 ----
 
 NOTE: We will be using this DestinationRule for the remainder of the examples
@@ -157,7 +157,7 @@ To deploy this configuration into the Service Mesh, execute the following comman
 
 [source,bash,role="execute-1"]
 ----
-oc apply -f /opt/app-root/workshop/content/src/istiofiles/virtual-service-80-20.yml -n %username%-tutorial
+oc apply -n %username%-tutorial -f /opt/app-root/workshop/content/src/istiofiles/virtual-service-80-20.yml
 ----
 
 Switch over to the Kiali console to watch the traffic shifting from the
@@ -199,9 +199,9 @@ going to each endpoint.
 A canary release involves rolling out a small deployment of new code and then
 routing specific users to it in an attempt to validate that everything is
 working as expected. In the previous example we modified the default
-behaviour for distributing requests between the endpoints so we could send
+behavior for distributing requests between the endpoints so we could send
 traffic to particular endpoints based on weighting. In this example we will
-modify the behaviour to be more selective, using characteristics of the
+modify the behavior to be more selective, using characteristics of the
 individual request to determine which endpoint should receive the request. In
 this way we can ensure that only a small subset of specific users reach the
 newly deployed code - a canary release.
@@ -260,7 +260,7 @@ bash /opt/app-root/workshop/content/scripts/curl_customer.sh
 ----
 
 You will notice the responses are only coming from the v1 endpoint and we are
-not seeing replies from the v2 or v3 endpoints. This is the behaviour for all
+not seeing replies from the v2 or v3 endpoints. This is the behavior for all
 requests which are not marked as coming from the Boston office as we defined
 in our `VirtualService`.
 
@@ -295,7 +295,7 @@ going to each endpoint.
 
 == Mirroring Traffic with the Service Mesh
 
-In this example we will modify the default behaviour for distributing
+In this example we will modify the default behavior for distributing
 requests between the endpoints to send all traffic to the v2 endpoint and
 then use the Service Mesh's routing capabilities to mirror the traffic to the
 v3 endpoint.
@@ -403,7 +403,7 @@ going to each endpoint.
 In this module we learned how to manage the traffic in our application
 through the declaration of routing rules deployed as Service Mesh
 _Destination Rule_ and _Virtual Service_ resources. This change in routing
-behaviour was managed without any modifications to the application's code and
+behavior was managed without any modifications to the application's code and
 without the application being aware these changes were occurring.
 
 We learned:
@@ -413,5 +413,5 @@ We learned:
 * how to mirror traffic from one endpoint to another.
 
 The Service Mesh traffic management capabilities support the declaration of
-more complex routing behaviour. This module is designed to provide only a
+more complex routing behavior. This module is designed to provide only a
 small taste of what is possible.
